@@ -498,9 +498,13 @@
         font-weight: 700;
         line-height: 1;
         transition: transform 0.2s;
+        animation: addPulse 1.8s ease-in-out infinite;
       }
       .add:hover {
         transform: rotate(90deg);
+      }
+      @keyframes addPulse {
+        50% { box-shadow: 0 0 0 6px #d6a52a55; }
       }
       .empty {
         grid-column: 1/-1;
@@ -514,6 +518,45 @@
         font-weight: 700;
         color: var(--burg);
       }
+      #popw { margin: 8px 0 18px; }
+      .popular-items {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding: 7px 3px 14px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--gold) transparent;
+      }
+      .popular-card {
+        flex: 0 0 215px;
+        min-height: 104px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 15px;
+        text-align: start;
+        color: var(--cream);
+        background: var(--brown);
+        border: 2px solid var(--gold);
+        border-radius: 42px 18px 42px 18px;
+        box-shadow: 0 5px 0 var(--beige);
+        transition: transform .2s var(--ease);
+      }
+      .popular-card:hover { transform: translateY(-3px) rotate(-1deg); }
+      .popular-card .popular-thumb {
+        flex: 0 0 72px;
+        width: 72px;
+        height: 72px;
+        display: block;
+        border: 2px solid var(--lgold);
+        border-radius: 50% 50% 44% 44%;
+        background-color: var(--beige);
+        background-size: cover;
+        background-position: center;
+        box-shadow: 0 0 0 4px #ffffff1c;
+      }
+      .popular-card strong { display: block; color: var(--lgold); font-family: Cairo, Inter, sans-serif; }
+      .popular-card small { display: block; }
       @media (max-width: 520px) {
         .grid {
           grid-template-columns: 1fr;
@@ -720,6 +763,17 @@
         border-radius: 14px;
         cursor: pointer;
       }
+      .opt-photo {
+        display: inline-block;
+        vertical-align: middle;
+        width: 38px;
+        height: 38px;
+        margin-inline-end: 7px;
+        border-radius: 12px;
+        background-size: cover;
+        background-position: center;
+        border: 1px solid var(--beige);
+      }
       .opt input {
         accent-color: var(--brown);
         width: 20px;
@@ -880,7 +934,7 @@
       }
       .hero2 {
         background: var(--burg);
-        padding-bottom: 34px;
+        padding-bottom: 0;
       }
       .hero2 > img {
         display: block;
@@ -983,24 +1037,17 @@
           height="941"
           fetchpriority="high"
         />
-        <div class="wrap hband">
-          <h1 class="sr" id="h1"></h1>
-          <p id="hp"></p>
-          <div class="ctas">
-            <a class="btn btn-gold" href="#menu" id="c1"></a
-            ><a class="btn btn-out" href="#menu" id="c2"></a>
-          </div>
-        </div>
+        <h1 class="sr" id="h1"></h1>
       </section>
 
       <section class="menu" id="menu">
         <div class="wrap">
           <h2 class="sec-title" id="mt"></h2>
+          <div id="popw"><p class="sub" id="pt"></p><div class="popular-items" id="popular-items"></div></div>
           <div class="tools">
             <input class="search" id="q" type="search" />
             <div class="tabs" id="tabs" role="group"></div>
           </div>
-          <div id="popw"><p class="sub" id="pt"></p></div>
           <div class="grid" id="grid" aria-live="polite"></div>
         </div>
       </section>
@@ -1065,6 +1112,7 @@
           "data:image/jpeg;base64,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",
       };
       /* ===== EDIT ME: restaurant config & menu data (prices are SAMPLE values) ===== */
+      const ADDON_IMAGE = "Gemini_Generated_Image_3gztaz3gztaz3gzt.png";
       const CFG = {
         name: { ar: "قصر الأغا", en: "Qasr Al-Agha" },
         phones: ["01115192896", "01115192892"],
@@ -1080,15 +1128,20 @@
       };
       const CATS = [
         ["all", "الكل", "All"],
+        ["sandwiches", "ساندوتشات", "Sandwiches"],
         ["shawerma", "شاورما", "Shawerma"],
+        ["burgers", "برجر", "Burgers"],
+        ["fried", "فراخ مقرمشة", "Crispy Chicken"],
         ["grills", "مشويات", "Grills"],
         ["meals", "وجبات", "Meals"],
-        ["sides", "إضافات", "Extras"],
+        ["sides", "إضافات ومشروبات", "Sides & Drinks"],
       ];
       const EXTRAS = [
-        { ar: "بطاطس", en: "Fries", p: 15 },
-        { ar: "صوص إضافي", en: "Extra sauce", p: 5 },
-        { ar: "جبنة", en: "Cheese", p: 10 },
+        { ar: "بطاطس إضافية", en: "Extra fries", p: 15, e: "addon" },
+        { ar: "صوص إضافي", en: "Extra sauce", p: 5, e: "addon" },
+        { ar: "جبنة إضافية", en: "Extra cheese", p: 10, e: "plat" },
+        { ar: "مخلل", en: "Pickles", p: 5, e: "sauce" },
+        { ar: "خبز إضافي", en: "Extra bread", p: 5, e: "wrap" },
       ];
       const ITEMS = [
         [
@@ -1187,6 +1240,41 @@
           0,
           0,
         ],
+        ["s1","sandwiches","ساندوتش كفتة لحمة","Beef Kofta Sandwich","كفتة مشوية مع الخبز","Grilled kofta in bread",55,"wrap",1,1],
+        ["s2","sandwiches","ساندوتش كفتة فراخ","Chicken Kofta Sandwich","كفتة فراخ مع الخبز","Chicken kofta in bread",50,"wrapZ",0,1],
+        ["s3","sandwiches","ساندوتش شيش طاووق","Shish Tawook Sandwich","شيش طاووق مشوي","Grilled shish tawook",65,"wrap",0,1],
+        ["s4","sandwiches","ساندوتش كريسبي بارد","Crispy Chicken Sandwich","فراخ كريسبي مع الصوص","Crispy chicken with sauce",65,"wrapZ",1,1],
+        ["s5","sandwiches","ساندوتش زنجر حار","Spicy Zinger Sandwich","فراخ حارة مقرمشة","Spicy crispy chicken",65,"wrap",0,1],
+        ["s6","sandwiches","ساندوتش فاهيتا","Fajita Sandwich","فاهيتا دجاج وخضار","Chicken fajita with vegetables",65,"wrapZ",0,1],
+        ["s7","sandwiches","ساندوتش بطاطس","Fries Sandwich","بطاطس مع الخبز والصوص","Fries with bread and sauce",35,"wrap",0,1],
+        ["b1","burgers","برجر لحمة","Beef Burger","برجر لحمة طازج","Fresh beef burger",70,"wrap",1,1],
+        ["b2","burgers","برجر لحمة بالجبنة","Cheese Beef Burger","برجر لحمة مع الجبنة","Beef burger with cheese",80,"wrapZ",1,1],
+        ["b3","burgers","برجر دبل","Double Burger","برجر بقطعتين لحمة","Double beef patty burger",90,"wrap",0,1],
+        ["b4","burgers","برجر ميكس","Mix Burger","خلطة برجر مميزة","Signature mixed burger",100,"wrapZ",0,1],
+        ["b5","burgers","برجر فراخ","Chicken Burger","برجر فراخ مقرمش","Crispy chicken burger",50,"wrap",0,1],
+        ["f1","fried","نصف فرخة مسحب","Half Boneless Chicken","نصف فرخة مسحب مع الأرز والبطاطس","Half boneless chicken with rice and fries",200,"plat",1,1],
+        ["f2","fried","ربع فرخة مسحب","Quarter Boneless Chicken","ربع فرخة مسحب مع الأرز والبطاطس","Quarter boneless chicken with rice and fries",120,"platL",0,1],
+        ["f3","fried","نصف فرخة شيش","Half Shish Chicken","أرز وتومية ومخلل وبطاطس وخبز","Rice, garlic sauce, pickles, fries and bread",120,"platR",1,1],
+        ["f4","fried","ربع فرخة شيش","Quarter Shish Chicken","أرز وتومية ومخلل وبطاطس وخبز","Rice, garlic sauce, pickles, fries and bread",90,"plat",0,1],
+        ["f5","fried","نصف كيلو كفتة فراخ","Half Kilo Chicken Kofta","تقدم مع أرز وتومية ومخلل وبطاطس","Served with rice, garlic sauce, pickles and fries",180,"platL",0,1],
+        ["f6","fried","ربع كيلو كفتة فراخ","Quarter Kilo Chicken Kofta","تقدم مع أرز وتومية ومخلل وبطاطس","Served with rice, garlic sauce, pickles and fries",100,"platR",0,1],
+        ["g4","grills","نصف كيلو شيش طاووق","Half Kilo Shish Tawook","شيش طاووق مشوي","Grilled shish tawook",200,"plat",1,1],
+        ["g5","grills","ربع كيلو شيش طاووق","Quarter Kilo Shish Tawook","شيش طاووق مشوي","Grilled shish tawook",120,"platL",0,1],
+        ["g6","grills","نصف كيلو كفتة لحمة","Half Kilo Beef Kofta","كفتة لحمة مشوية","Grilled beef kofta",200,"platR",1,1],
+        ["g7","grills","ربع كيلو كفتة لحمة","Quarter Kilo Beef Kofta","كفتة لحمة مشوية","Grilled beef kofta",120,"plat",0,1],
+        ["g8","grills","وجبة زنجر حار","Spicy Zinger Meal","وجبة فراخ مقرمشة","Crispy chicken meal",100,"platL",0,1],
+        ["g9","grills","وجبة كريسبي","Crispy Meal","وجبة فراخ كريسبي","Crispy chicken meal",100,"platR",0,1],
+        ["g10","grills","وجبة بانيه","Breaded Chicken Meal","وجبة بانيه مقرمش","Breaded chicken meal",100,"plat",0,1],
+        ["m3","meals","مكس جريل عادي","Mixed Grill","شيش طاووق وكفتة ولحمة مع أرز وسلطة","Shish tawook, kofta and meat with rice and salad",145,"plat",1,1],
+        ["m4","meals","مكس جريل اكسترا","Extra Mixed Grill","تشكيلة مشاوي أكبر مع أرز وسلطة","Larger mixed grill with rice and salad",210,"platR",1,1],
+        ["m5","meals","مكس جريل عائلي","Family Mixed Grill","وجبة عائلية مشكلة","Family mixed grill platter",660,"platL",1,1],
+        ["m6","meals","منسف خليجي مشكل","Gulf Mixed Mansaf","أرز ولحمة ومشاوي مع السلطة","Rice, meat and grills with salad",1200,"rice",1,1],
+        ["m7","meals","٣ قطع بروست","3-Piece Broast","دجاج بروست مقرمش","Crispy broast chicken",100,"plat",0,1],
+        ["m8","meals","٤ قطع بروست","4-Piece Broast","دجاج بروست مقرمش","Crispy broast chicken",150,"platR",0,1],
+        ["m9","meals","وجبة كريسبي","Crispy Chicken Meal","وجبة مع البطاطس والصوص","Meal with fries and sauce",100,"platL",0,1],
+        ["x2","sides","بطاطس","French Fries","بطاطس مقلية","Golden french fries",25,"sauce",0,0],
+        ["x3","sides","مياه معدنية","Mineral Water","مياه معدنية","Mineral water",10,"sauce",0,0],
+        ["x4","sides","كولا","Cola","مشروب غازي","Soft drink",15,"sauce",0,0],
       ].map((a) => ({
         id: a[0],
         c: a[1],
@@ -1207,7 +1295,6 @@
           about: "عن المطعم",
           contact: "تواصل معنا",
           h1: "قصر الأغا - أصل الأكل الشامي",
-          hp: "الطعم الأصيل بكل لقمة. شاورما ومشاوي وأرز شامي، اطلبها واستلمها أو نوصلها لك.",
           c1: "اطلب الآن",
           c2: "شوف المنيو",
           search: "ابحث عن وجبتك...",
@@ -1232,6 +1319,9 @@
           add: "أضف إلى السلة",
           notes: "ملاحظات",
           extras: "إضافات",
+          size: "الحجم",
+          medium: "وسط",
+          large: "كبير (+٢٠ جنيه)",
           rm: "حذف",
           name: "الاسم",
           tel: "رقم الهاتف",
@@ -1249,7 +1339,7 @@
           back: "العودة إلى المنيو",
           wam: "أرسل الطلب على واتساب",
           need: "من فضلك اكتب الاسم ورقم الهاتف",
-          needa: "اكتب العنوان للتوصيل",
+          needa: "من فضلك اكتب العنوان",
           view: "عرض السلة",
           rights: "جميع الحقوق محفوظة",
           wnew: "طلب جديد من الموقع 🍔",
@@ -1290,6 +1380,9 @@
           add: "Add to cart",
           notes: "Notes",
           extras: "Extras",
+          size: "Size",
+          medium: "Medium",
+          large: "Large (+20 EGP)",
           rm: "Remove",
           name: "Name",
           tel: "Phone number",
@@ -1307,7 +1400,7 @@
           back: "Back to menu",
           wam: "Send order on WhatsApp",
           need: "Please enter your name and phone",
-          needa: "Enter an address for delivery",
+          needa: "Please enter your address",
           view: "View cart",
           rights: "All rights reserved",
           wnew: "New order from the website 🍔",
@@ -1362,7 +1455,7 @@
         );
       const find = (id) => ITEMS.find((i) => i.id === id);
       const lineP = (l) =>
-        (find(l.id).p + l.ex.reduce((s, x) => s + EXTRAS[x].p, 0)) * l.q;
+        (find(l.id).p + (l.size === "large" ? 20 : 0) + l.ex.reduce((s, x) => s + EXTRAS[x].p, 0)) * l.q;
       const subtotal = () => S.cart.reduce((s, l) => s + lineP(l), 0),
         count = () => S.cart.reduce((s, l) => s + l.q, 0);
       let lastFocus = null;
@@ -1383,9 +1476,6 @@
           .join("");
         $("#lang").textContent = S.lang === "ar" ? "EN" : "عربي";
         $("#h1").textContent = t("h1");
-        $("#hp").textContent = t("hp");
-        $("#c1").textContent = t("c1");
-        $("#c2").textContent = t("c2");
         $("#mt").textContent = t("menu");
         $("#q").placeholder = t("search");
         $("#q").setAttribute("aria-label", t("search"));
@@ -1440,6 +1530,9 @@
                 .includes(q)),
         );
         $("#popw").style.display = S.cat === "all" && !q ? "" : "none";
+        $("#popular-items").innerHTML = ITEMS.filter((i) => i.pop).map((i) =>
+          `<button class="popular-card" data-id="${i.id}"><span class="popular-thumb" role="img" aria-label="${nm(i)}" style="background-image:url(${IMG[i.e]})"></span><span><strong>${nm(i)}</strong><small>${money(i.p)} · ${t("add")}</small></span></button>`
+        ).join("");
         $("#grid").innerHTML = list.length
           ? list
               .map(
@@ -1467,19 +1560,22 @@
       function product(id) {
         const i = find(id);
         let q = 1;
+        let size = "medium";
         const m = $("#modal");
         const calc = () => {
+          size = m.querySelector('[name="size"]:checked')?.value || "medium";
           const ex = [...m.querySelectorAll(".opt input:checked")].map(
             (x) => +x.value,
           );
           m.querySelector("#mq").textContent = q;
           m.querySelector("#madd b").textContent = money(
-            (i.p + ex.reduce((s, x) => s + EXTRAS[x].p, 0)) * q,
+            (i.p + (size === "large" ? 20 : 0) + ex.reduce((s, x) => s + EXTRAS[x].p, 0)) * q,
           );
           return ex;
         };
         m.innerHTML = `<button class="x" aria-label="close" data-close>✕</button><div class="mhead" role="img" aria-label="${nm(i)}" style="background-image:url(${IMG[i.e]})"></div><div class="mbody"><h2 id="mn">${nm(i)}</h2><p style="margin:0">${ds(i)}</p>
-  ${i.x ? `<b>${t("extras")}</b>${EXTRAS.map((x, k) => `<label class="opt"><span><input type="checkbox" value="${k}"> ${S.lang === "ar" ? x.ar : x.en}</span><span>+${money(x.p)}</span></label>`).join("")}` : ""}
+  ${["sandwiches","shawerma","burgers"].includes(i.c) ? `<b>${t("size")}</b><div class="seg"><label><input type="radio" name="size" value="medium" checked>${t("medium")}</label><label><input type="radio" name="size" value="large">${t("large")}</label></div>` : ""}
+  ${i.x ? `<b>${t("extras")}</b>${EXTRAS.map((x, k) => `<label class="opt"><span><input type="checkbox" value="${k}"><span class="opt-photo" role="img" aria-label="${S.lang === "ar" ? x.ar : x.en}" style="background-image:url(${x.e === "addon" ? ADDON_IMAGE : IMG[x.e]})"></span>${S.lang === "ar" ? x.ar : x.en}</span><span>+${money(x.p)}</span></label>`).join("")}` : ""}
   <label class="f">${t("notes")}<textarea id="mnote" rows="2"></textarea></label>
   <div style="display:flex;gap:12px;align-items:center"><div class="qty"><button data-d="-1" aria-label="-">−</button><span id="mq">1</span><button data-d="1" aria-label="+">+</button></div><button class="btn btn-dark" id="madd" style="flex:1">${t("add")} · <b></b></button></div></div>`;
         m.onclick = (e) => {
@@ -1492,9 +1588,10 @@
           if (b && b.id === "madd") {
             const ex = calc(),
               note = m.querySelector("#mnote").value.trim(),
-              key = i.id + ex.join() + note,
+              size = m.querySelector('[name="size"]:checked')?.value || "medium",
+              key = i.id + size + ex.join() + note,
               f = S.cart.find((l) => l.key === key);
-            f ? (f.q += q) : S.cart.push({ key, id: i.id, q, ex, note });
+            f ? (f.q += q) : S.cart.push({ key, id: i.id, q, ex, note, size });
             save();
             cartUI();
             closeAll();
@@ -1531,16 +1628,16 @@
             ? `<div class="db">${S.cart
                 .map((l, k) => {
                   const i = find(l.id);
-                  return `<div class="ci"><div class="e" style="background-image:url(${IMG[i.e]})"></div><div><h4>${nm(i)}</h4><small>${l.ex.map((x) => (S.lang === "ar" ? EXTRAS[x].ar : EXTRAS[x].en)).join("، ")} ${esc(l.note)}</small><b class="price">${money(lineP(l))}</b><br><button class="rm" data-rm="${k}">${t("rm")}</button></div><div class="qty"><button data-q="${k}" data-d="-1" aria-label="-">−</button><span>${l.q}</span><button data-q="${k}" data-d="1" aria-label="+">+</button></div></div>`;
+                  return `<div class="ci"><div class="e" style="background-image:url(${IMG[i.e]})"></div><div><h4>${nm(i)}</h4><small>${l.size ? (l.size === "large" ? t("large") : t("medium")) + " · " : ""}${l.ex.map((x) => (S.lang === "ar" ? EXTRAS[x].ar : EXTRAS[x].en)).join("، ")} ${esc(l.note)}</small><b class="price">${money(lineP(l))}</b><br><button class="rm" data-rm="${k}">${t("rm")}</button></div><div class="qty"><button data-q="${k}" data-d="-1" aria-label="-">−</button><span>${l.q}</span><button data-q="${k}" data-d="1" aria-label="+">+</button></div></div>`;
                 })
                 .join(
                   "",
                 )}</div><div class="df">${summary()}<button class="btn btn-dark" id="go">${t("co")}</button></div>`
             : `<div class="db"><p class="empty">${t("emptyc")}</p></div>`;
         } else if (S.step === "form") {
-          h += `<div class="db"><label class="f">${t("name")}<input class="in" id="fn" autocomplete="name"></label><label class="f">${t("tel")}<input class="in" id="fp" type="tel" autocomplete="tel"></label>
+          h += `<div class="db"><label class="f">${t("name")} *<input class="in" id="fn" autocomplete="name" required></label><label class="f">${t("tel")} *<input class="in" id="fp" type="tel" autocomplete="tel" required></label><label class="f">${t("addr")} *<input class="in" id="fad" autocomplete="street-address" required></label>
     <div class="f"><b>${t("how")}</b><div class="seg"><label><input type="radio" name="m" value="pick" checked>${t("pick")}</label><label><input type="radio" name="m" value="deliv">${t("deliv")}</label></div></div>
-    <label class="f" id="fa" hidden>${t("addr")}<input class="in" id="fad"></label><label class="f">${t("onote")}<textarea id="fo" rows="2"></textarea></label><small>💵 ${t("pay")}</small><p id="err" style="color:#a00;margin:0;font-weight:700" role="alert"></p></div><div class="df">${summary()}<button class="btn btn-dark" id="sendo">${t("send")}</button></div>`;
+    <label class="f">${t("onote")}<textarea id="fo" rows="2"></textarea></label><small>💵 ${t("pay")}</small><p id="err" style="color:#a00;margin:0;font-weight:700" role="alert"></p></div><div class="df">${summary()}<button class="btn btn-dark" id="sendo">${t("send")}</button></div>`;
         } else {
           const o = S.last;
           h += `<div class="db"><div class="ok"><div class="e">✅</div><h3 style="margin:0;color:var(--brown)">${t("done")}</h3><p style="margin:0">${t("num")}: <b>#${o.no}</b><br>${t("prep")}: ${CFG.prep} ${t("min")}</p></div>${o.lines.map((x) => `<div class="row"><span>${x}</span></div>`).join("")}<div class="row t"><span>${t("tot")}</span><span>${money(o.total)}</span></div><p style="margin:0">${esc(o.name)} · ${esc(o.phone)}</p><a class="btn btn-dark" target="_blank" rel="noopener" href="${o.wa}">💬 ${t("wam")}</a><button class="btn btn-line" data-close>${t("back")}</button></div>`;
@@ -1554,7 +1651,7 @@
           dv = document.querySelector("[name=m]:checked").value === "deliv",
           a = $("#fad").value.trim();
         if (!n || !p) return ($("#err").textContent = t("need"));
-        if (dv && !a) return ($("#err").textContent = t("needa"));
+        if (!a) return ($("#err").textContent = t("needa"));
         const lines = S.cart.map(
             (l) =>
               `${l.q} × ${nm(find(l.id))}${l.ex.length ? " (+" + l.ex.map((x) => (S.lang === "ar" ? EXTRAS[x].ar : EXTRAS[x].en)).join(", ") + ")" : ""}${l.note ? " — " + l.note : ""}`,
@@ -1562,7 +1659,7 @@
           total = subtotal(),
           no = Math.floor(1000 + Math.random() * 9000);
         const nt = $("#fo").value.trim();
-        const msg = `${t("wnew")}\n\n${t("wn")}: ${n}\n${t("wp")}: ${p}\n\n${t("wo")}:\n${S.cart.map((l) => `${l.q} × ${nm(find(l.id))}\n${money(lineP(l))}`).join("\n\n")}\n\n${t("tot")}:\n${money(total)}\n\n${t("wa2")}: ${dv ? a : t("pick")}\n\n${t("wnt")}: ${nt || "-"}\n#${no}`;
+        const msg = `${t("wnew")}\n\n${t("wn")}: ${n}\n${t("wp")}: ${p}\n\n${t("wo")}:\n${S.cart.map((l) => `${l.q} × ${nm(find(l.id))}${l.size ? " · " + (l.size === "large" ? t("large") : t("medium")) : ""}${l.ex.length ? "\n  + " + l.ex.map((x) => `${S.lang === "ar" ? EXTRAS[x].ar : EXTRAS[x].en} (${money(EXTRAS[x].p)})`).join(", ") : ""}${l.note ? "\n  " + t("notes") + ": " + l.note : ""}\n${money(lineP(l))}`).join("\n\n")}\n\n${t("tot")}:\n${money(total)}\n\n${t("how")}: ${dv ? t("deliv") : t("pick")}\n${t("wa2")}: ${a}\n\n${t("wnt")}: ${nt || "-"}\n#${no}`;
         S.last = {
           no,
           name: n,
@@ -1579,7 +1676,7 @@
       }
       /* ===== events ===== */
       document.addEventListener("click", (e) => {
-        const c = e.target.closest(".card");
+        const c = e.target.closest(".card,.popular-card");
         if (c) return product(c.dataset.id);
         const tb = e.target.closest(".tab");
         if (tb) {
